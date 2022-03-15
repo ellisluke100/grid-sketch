@@ -60,9 +60,9 @@ clearGridBtn.addEventListener('click', () => {
 });
 
 gridElement.addEventListener('mouseover', (e) => {
-    //if (leftClickDown) {
-    e.target.style.backgroundColor = currentBrushColor;
-    //};
+    if (leftClickDown) {
+        e.target.style.backgroundColor = currentBrushColor;
+    }
 });
 
 // https://stackoverflow.com/questions/322378/javascript-check-if-mouse-button-down

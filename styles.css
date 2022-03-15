@@ -5,6 +5,7 @@
 body {
     margin: 0;
     padding: 20px;
+    user-select: none; /* Prevents :active and stuff though */
 }
 
 h1 {
