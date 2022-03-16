@@ -30,6 +30,36 @@ h1 {
 
 /* BUTTONS */
 
-#color-picker {
+.color-picker {
+
+}
+
+.clear-btn {
+
+}
+
+.eraser-btn-btn {
+
+}
+
+.active-btn {
+    background-color: blue;
+}
+
+.grid-btn {
+    
+}
+
+/* SLIDER */
+
+.grid-size-slider {
+
+}
+
+.slider-label {
+
+}
+
+.size-slider {
 
 }

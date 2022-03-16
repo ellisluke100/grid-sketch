@@ -11,8 +11,13 @@
 <body>
     <main> 
         <h1> Grid Sketch </h1>
-        <input id="color-picker" type="color" name="color">
-        <button id="clear-grid-btn">Clear</button>
+        <input class="color-picker" type="color" name="color">
+        <button class="clear-btn grid-btn">Clear</button>
+        <button class="eraser-btn grid-btn">Eraser</button>
+        <div class="grid-size-slider">
+            <label class="slider-label"> 25 x 25 </label>
+            <input class="size-slider" type="range" min="5" max="50" value="25" step="1">
+        </div>
         <div id="grid">
             
         </div>

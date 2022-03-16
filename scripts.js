@@ -1,19 +1,32 @@
 // Element references
 const gridElement = document.querySelector("#grid");
-const colorPicker = document.querySelector("#color-picker")
-const clearGridBtn = document.querySelector("#clear-grid-btn")
+const colorPicker = document.querySelector(".color-picker")
+const clearGridBtn = document.querySelector(".clear-btn")
+const eraserBtn = document.querySelector(".eraser-btn");
 const bodyElement = document.querySelector("body");
+const sliderLabel = document.querySelector(".slider-label");
+const sliderElement  = document.querySelector(".size-slider");
 
 const gridStyles = getComputedStyle(gridElement);
 const gridHeight = parseInt((gridStyles.height).slice(0, gridStyles.height.length-2));
 const gridWidth = parseInt((gridStyles.width).slice(0, gridStyles.width.length-2)); 
 
 let currentBrushColor = "#000000";
+let previousBrushColor = currentBrushColor;
+let erasing = false;
+
+function clearExistingGrid() {
+    while (gridElement.firstChild) {
+        gridElement.removeChild(gridElement.lastChild);
+    }
+}
 
 function createGrid(size) {
     // Create a row
     // Add a column of grid squares
     // Add a listener to each
+
+    if (gridElement.hasChildNodes()) {clearExistingGrid();}
 
     // Calculate size of each cell
     const cellSize = gridHeight/size;
@@ -59,16 +72,32 @@ clearGridBtn.addEventListener('click', () => {
     });
 });
 
+eraserBtn.addEventListener('click', () => {
+    if (!erasing) {
+        previousBrushColor = currentBrushColor;
+        currentBrushColor = "#FFFFFF";
+        erasing = true;
+        eraserBtn.classList.add("active-btn");
+    } else {
+        erasing = false;
+        currentBrushColor = previousBrushColor;
+        eraserBtn.classList.remove("active-btn");
+    }
+});
+
 gridElement.addEventListener('mouseover', (e) => {
     if (leftClickDown) {
         e.target.style.backgroundColor = currentBrushColor;
     }
 });
 
+gridElement.addEventListener('mousedown', (e) => {
+    e.target.style.backgroundColor = currentBrushColor;
+});
+
 // https://stackoverflow.com/questions/322378/javascript-check-if-mouse-button-down
 function setClickState(e) {
     var flags = e.buttons !== undefined ? e.buttons : e.which;
-    console.log(e.buttons);
     leftClickDown = (flags & 1) === 1;
 }
 
@@ -80,4 +109,12 @@ colorPicker.addEventListener('change', (e) => {
     currentBrushColor = e.target.value;
 });
 
-createGrid(20);
+sliderElement.oninput = () => {
+    sliderLabel.textContent = "" + sliderElement.value + " x " + sliderElement.value;
+}
+
+sliderElement.onchange = () => {
+    createGrid(sliderElement.value);
+}
+
+createGrid(25);
